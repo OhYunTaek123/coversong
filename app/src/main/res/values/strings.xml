@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">블러드 커넥트</string>
+    <string name="app_name">covery</string>
 
-    <string name="app_description">지정헌혈 서비스</string>
-    <string name="action_intro">헌혈할래를 소개합니다.></string>
+    <string name="app_description">커버곡 챌린지</string>
+    <string name="action_intro">커버곡 챌린지를 설명합니다></string>
 
     <string name="action_sign_in_kakao">카카오로 시작하기</string>
     <string name="action_sign_in_google">구글로 시작하기</string>

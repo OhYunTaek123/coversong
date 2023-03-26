@@ -1,15 +1,17 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="oss.fragment.ChatFragment">
+    tools:context=".">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="채팅"
-        android:textSize="30sp" />
+        android:text="홈"
+        android:textColor="@android:color/black"
+        android:textSize="50sp"/>
 
-</FrameLayout>
+</LinearLayout>
