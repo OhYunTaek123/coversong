@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context='.main.BoardActivity'>
 
+
     <FrameLayout
         android:id="@+id/menu_frame_layout"
         android:layout_width="match_parent"
@@ -16,17 +17,17 @@
         app:layout_MarginBottom="?attr/actionBarSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible" />
-
-
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/menu_bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:visibility="visible"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/black"
         app:labelVisibilityMode="labeled"

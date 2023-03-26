@@ -1,19 +1,17 @@
 package com.example.coversong.main;
 
 import android.os.Bundle;
-
 import android.view.MenuItem;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.example.coversong.R;
 import com.example.coversong.fragment.BoardHome;
 import com.example.coversong.fragment.BoardMore;
 import com.example.coversong.fragment.BoardPlaylist;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 /**
  * 홈화면 액티비티
@@ -22,44 +20,40 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
  *
  */
 public class BoardActivity extends AppCompatActivity {
-    private FragmentManager fragmentManager = getSupportFragmentManager();
-    private BoardHome fragmentHome = new BoardHome();
-    private BoardPlaylist fragmentPlaylist = new BoardPlaylist();
-    private BoardMore fragmentMore = new BoardMore();
+
+    BoardHome boardHome;
+    BoardPlaylist boardPlaylist;
+    BoardMore boardMore;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate((savedInstanceState));
+        protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
 
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.menu_frame_layout, fragmentHome).commitAllowingStateLoss();
+        boardHome = new BoardHome();
+        boardPlaylist = new BoardPlaylist();
+        boardMore = new BoardMore();
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
-        bottomNavigationView.setOnItemSelectedListener(new ItemSelectedListener());
-    }
+        getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame_layout, boardHome).commit();
 
-    class ItemSelectedListener implements BottomNavigationView.OnItemSelectedListener{
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem){
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-
-            switch (menuItem.getItemId()){
-                case R.id.menu_home:
-                    transaction.replace(R.id.menu_frame_layout, fragmentHome).commitAllowingStateLoss();
-                    break;
-
-                case R.id.menu_playlist:
-                    transaction.replace(R.id.menu_frame_layout, fragmentPlaylist).commitAllowingStateLoss();
-                    break;
-
-                case R.id.menu_more:
-                    transaction.replace(R.id.menu_frame_layout, fragmentMore).commitAllowingStateLoss();
-                    break;
+        NavigationBarView navigationBarView = findViewById(R.id.menu_bottom_navigation);
+        navigationBarView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item){
+                switch(item.getItemId()){
+                    case R.id.menu_home:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame_layout,boardHome).commit();
+                        return true;
+                    case R.id.menu_playlist:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame_layout,boardPlaylist).commit();
+                        return true;
+                    case R.id.menu_more:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame_layout,boardMore).commit();
+                        return true;
+                }
+                return false;
             }
-
-            return true;
-        }
+        });
+    
     }
-
 }
