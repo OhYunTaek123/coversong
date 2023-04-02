@@ -3,15 +3,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".fragment.BoardHome">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="홈"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/covery"
+        android:gravity="start"
+        android:text="@string/covery"
         android:textColor="@android:color/black"
-        android:textSize="50sp"/>
+        android:textSize="50sp" />
+
+    <TextView
+        android:id="@+id/rangking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/rangking"
+        android:text="@string/rangking"
+        android:textSize="25sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#DDDADA" />
+
+    <TextView
+        android:id="@+id/Newest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/newest"
+        android:text="@string/newest"
+        android:textSize="25sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

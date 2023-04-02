@@ -6,21 +6,35 @@
         android:id="@+id/menu_home"
         android:enabled="true"
         android:icon="@drawable/ic_home"
-        android:title="홈"
+        android:title="@string/menu_home"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/menu_playlist"
         android:enabled="true"
-        android:icon="@drawable/border"
-        android:title="플레이리스트"
+        android:icon="@drawable/ic_playlist"
+        android:title="@string/menu_playlist"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/menu_mic"
+        android:enabled="true"
+        android:icon="@drawable/ic_mic"
+        android:title="@string/menu_mic"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/menu_profile"
+        android:enabled="true"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/menu_profile"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/menu_more"
         android:enabled="true"
         android:icon="@drawable/ic_settings"
-        android:title="더보기"
+        android:title="@string/menu_set"
         app:showAsAction="ifRoom"/>
 
 </menu>

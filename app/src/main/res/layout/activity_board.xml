@@ -5,36 +5,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context='.main.BoardActivity'>
 
 
     <FrameLayout
-        android:id="@+id/menu_frame_layout"
+        android:id="@+id/containers"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
-        android:visibility="visible"
-        app:layout_MarginBottom="?attr/actionBarSize"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_weight="1"
+        />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/menu_bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:layout_gravity="bottom"
-        android:visibility="visible"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/black"
+        android:layout_marginTop="675dp"
+        app:itemBackground="@color/white"
         app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/menu_frame_layout"
+        app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/board_menu_bottom" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

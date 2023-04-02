@@ -8,8 +8,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.coversong.R;
 import com.example.coversong.fragment.BoardHome;
+import com.example.coversong.fragment.BoardMic;
 import com.example.coversong.fragment.BoardMore;
 import com.example.coversong.fragment.BoardPlaylist;
+import com.example.coversong.fragment.BoardProfile;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -24,6 +26,8 @@ public class BoardActivity extends AppCompatActivity {
     BoardHome boardHome;
     BoardPlaylist boardPlaylist;
     BoardMore boardMore;
+    BoardMic boardMic;
+    BoardProfile boardProfile;
 
     @Override
         protected void onCreate(Bundle savedInstanceState){
@@ -33,6 +37,8 @@ public class BoardActivity extends AppCompatActivity {
         boardHome = new BoardHome();
         boardPlaylist = new BoardPlaylist();
         boardMore = new BoardMore();
+        boardMic = new BoardMic();
+        boardProfile = new BoardProfile();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame_layout, boardHome).commit();
 
@@ -46,6 +52,12 @@ public class BoardActivity extends AppCompatActivity {
                         return true;
                     case R.id.menu_playlist:
                         getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame_layout,boardPlaylist).commit();
+                        return true;
+                    case R.id.menu_mic:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame_layout,boardMic).commit();
+                        return true;
+                    case R.id.menu_profile:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame_layout,boardProfile).commit();
                         return true;
                     case R.id.menu_more:
                         getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame_layout,boardMore).commit();
