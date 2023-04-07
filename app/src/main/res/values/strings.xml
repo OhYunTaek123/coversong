@@ -24,6 +24,15 @@
     <string name="newest">최신 업로드</string>
     <string name="anonymous">익명</string>
 
+    <string name="count">0</string>
+    <string name="Post">Post</string>
+    <string name="Follower">Follower</string>
+    <string name="Following">Following</string>
+    <string name="myCover">나의 커버곡</string>
+    <string name="myComment">나의 댓글</string>
+    <string name="myFavorite">좋아요한 커버곡</string>
+
+
     <string-array name="blood_type">
         <item>O형</item>
         <item>A형</item>
