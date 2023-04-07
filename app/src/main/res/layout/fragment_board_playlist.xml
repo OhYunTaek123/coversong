@@ -16,6 +16,13 @@
         player_seek_bar, play_time_text_view, total_time_text_view"
         tools:visibility="visible" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/covery"
+        android:textColor="@android:color/black"
+        android:textSize="50sp"/>
+
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/play_list_group"
