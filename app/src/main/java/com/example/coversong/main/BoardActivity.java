@@ -40,7 +40,7 @@ public class BoardActivity extends AppCompatActivity {
         boardMic = new BoardMic();
         boardProfile = new BoardProfile();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame_layout, boardHome).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.containers, boardHome).commit();
 
         NavigationBarView navigationBarView = findViewById(R.id.menu_bottom_navigation);
         navigationBarView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -48,19 +48,19 @@ public class BoardActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(@NonNull MenuItem item){
                 switch(item.getItemId()){
                     case R.id.menu_home:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame_layout,boardHome).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.containers,boardHome).commit();
                         return true;
                     case R.id.menu_playlist:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame_layout,boardPlaylist).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.containers,boardPlaylist).commit();
                         return true;
                     case R.id.menu_mic:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame_layout,boardMic).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.containers,boardMic).commit();
                         return true;
                     case R.id.menu_profile:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame_layout,boardProfile).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.containers,boardProfile).commit();
                         return true;
                     case R.id.menu_more:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame_layout,boardMore).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.containers,boardMore).commit();
                         return true;
                 }
                 return false;

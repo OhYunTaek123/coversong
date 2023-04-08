@@ -3,7 +3,7 @@
     <item android:id="@android:id/background"> <!-- 재정의 -->
         <shape>
             <corners android:radius="2dp" />
-            <solid android:color="@color/seek_background" />
+            <solid android:color="@color/transparency" />
         </shape>
     </item>
 
