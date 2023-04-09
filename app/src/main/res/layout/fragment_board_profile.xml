@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".fragment.BoardHome">
 
-
     <ImageView
         android:layout_width="150dp"
         android:layout_height="50dp"

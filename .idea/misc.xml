@@ -6,7 +6,12 @@
         <entry key="..\:/Users/oh355/capstone/covery/app/src/main/res/drawable-v24/ic_baseline_playlist_play_48.xml" value="0.1745" />
         <entry key="..\:/Users/oh355/capstone/covery/app/src/main/res/drawable-v24/ic_baseline_skip_next_48.xml" value="0.1745" />
         <entry key="..\:/Users/oh355/capstone/covery/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2545" />
+        <entry key="..\:/Users/oh355/capstone/covery/app/src/main/res/drawable-v24/player_seek_background.xml" value="0.2275" />
         <entry key="..\:/Users/oh355/capstone/covery/app/src/main/res/drawable-v24/player_seek_thumb.xml" value="0.1745" />
+        <entry key="..\:/Users/oh355/capstone/covery/app/src/main/res/drawable/back_frame.xml" value="0.227" />
+        <entry key="..\:/Users/oh355/capstone/covery/app/src/main/res/drawable/border.xml" value="0.2275" />
+        <entry key="..\:/Users/oh355/capstone/covery/app/src/main/res/drawable/edittext_rounded_style.xml" value="0.227" />
+        <entry key="..\:/Users/oh355/capstone/covery/app/src/main/res/drawable/ic_baseline_file_upload_24.xml" value="0.227" />
         <entry key="..\:/Users/oh355/capstone/covery/app/src/main/res/drawable/ic_home.xml" value="0.2545" />
         <entry key="..\:/Users/oh355/capstone/covery/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2545" />
         <entry key="..\:/Users/oh355/capstone/covery/app/src/main/res/drawable/ic_mic.xml" value="0.2545" />
@@ -16,6 +21,7 @@
         <entry key="..\:/Users/oh355/capstone/covery/app/src/main/res/layout/activity_board.xml" value="0.2619047619047619" />
         <entry key="..\:/Users/oh355/capstone/covery/app/src/main/res/layout/activity_main.xml" value="0.25987841945288753" />
         <entry key="..\:/Users/oh355/capstone/covery/app/src/main/res/layout/fragment_board_home.xml" value="0.327445652173913" />
+        <entry key="..\:/Users/oh355/capstone/covery/app/src/main/res/layout/fragment_board_mic.xml" value="0.33" />
         <entry key="..\:/Users/oh355/capstone/covery/app/src/main/res/layout/fragment_board_more.xml" value="0.2669706180344478" />
         <entry key="..\:/Users/oh355/capstone/covery/app/src/main/res/layout/fragment_board_playlist.xml" value="0.327445652173913" />
         <entry key="..\:/Users/oh355/capstone/covery/app/src/main/res/layout/fragment_board_profile.xml" value="0.2651975683890577" />

@@ -32,6 +32,15 @@
     <string name="myComment">나의 댓글</string>
     <string name="myFavorite">좋아요한 커버곡</string>
 
+    <string name="myBring">녹음파일 가져오기</string>
+    <string name="myMic">커버곡 녹음하기</string>
+    <string name="btnRecord">녹음시작</string>
+    <string name="btnStop">녹음중지</string>
+    <string name="btnStart">재생</string>
+    <string name="btnUpload">업로드</string>
+    <string name="musicName">노래제목을 입력하시오</string>
+    <string name="btnBring">가져오기</string>
+
 
     <string-array name="blood_type">
         <item>O형</item>
