@@ -1,5 +1,6 @@
 package com.example.coversong.fragment;
 
+import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,4 +23,7 @@ public class BoardMic extends Fragment {
 
         return inflater.inflate(R.layout.fragment_board_mic, container, false);
     }
+
 }
+
+
