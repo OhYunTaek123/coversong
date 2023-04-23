@@ -1,8 +1,9 @@
 package com.example.coversong.main;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,43 +18,49 @@ import kotlin.jvm.functions.Function2;
 
 public class MainActivity extends AppCompatActivity {
 
-    private View loginButton, passButton;
+    private static final String TAG = "MainActivity";
+
+    private View loginButton;
     private TextView nickName;
-    private ImageView profileImage;
 
 
+
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         loginButton = findViewById(R.id.main_kakao_button);
-        passButton = findViewById(R.id.main_pass_button);
-        profileImage = findViewById(R.id.imageLogo);
+        nickName = findViewById(R.id.nickname);
 
         Function2<OAuthToken, Throwable, Unit> callback = new Function2<OAuthToken, Throwable, Unit>() {
             @Override
             public Unit invoke(OAuthToken oAuthToken, Throwable throwable) {
-                if (oAuthToken != null) {
-
+                if(oAuthToken != null){
+                    //TBD
                 }
-                if (throwable != null){
-
+                if (throwable != null) {
+                    //TBD
                 }
                 updateKakaoLogin();
                 return null;
             }
         };
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 if (UserApiClient.getInstance().isKakaoTalkLoginAvailable(MainActivity.this)){
                     UserApiClient.getInstance().loginWithKakaoTalk(MainActivity.this, callback);
                 } else {
-                    UserApiClient.getInstance().loginWithKakaoAccount(MainActivity.this,callback);
+                    UserApiClient.getInstance().loginWithKakaoTalk(MainActivity.this, callback);
                 }
+
             }
         });
+
         updateKakaoLogin();
     }
 
@@ -63,13 +70,20 @@ public class MainActivity extends AppCompatActivity {
             public Unit invoke(User user, Throwable throwable) {
                 if (user != null){
 
+                    Log.i(TAG, "invoke: nickname=" + user.getKakaoAccount().getProfile().getNickname());
+
+                    nickName.setText(user.getKakaoAccount().getProfile().getNickname()); //닉네임 불러오기
+
+
                     loginButton.setVisibility(View.GONE);
-                    passButton.setVisibility(View.VISIBLE);
+
 
                 } else {
 
+                    nickName.setText(null);
+
                     loginButton.setVisibility(View.VISIBLE);
-                    passButton.setVisibility(View.GONE);
+
                 }
                 return null;
             }
