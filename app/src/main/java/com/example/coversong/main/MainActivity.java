@@ -1,9 +1,8 @@
 package com.example.coversong.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,8 +17,7 @@ import kotlin.jvm.functions.Function2;
 public class MainActivity extends AppCompatActivity {
 
     private View loginButton, passButton;
-    private TextView nickName;
-    private ImageView profileImage;
+
 
 
     @Override
@@ -29,8 +27,6 @@ public class MainActivity extends AppCompatActivity {
 
         loginButton = findViewById(R.id.main_kakao_button);
         passButton = findViewById(R.id.main_pass_button);
-        profileImage = findViewById(R.id.imageLogo);
-
         Function2<OAuthToken, Throwable, Unit> callback = new Function2<OAuthToken, Throwable, Unit>() {
             @Override
             public Unit invoke(OAuthToken oAuthToken, Throwable throwable) {
@@ -55,6 +51,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         updateKakaoLogin();
+
+        passButton.setOnClickListener(new View.OnClickListener(){
+
+            public void onClick(View v){
+                moveBoardActivity();
+            }
+        });
+    }
+
+    private void moveBoardActivity(){
+        Intent intent = new Intent(MainActivity.this, BoardActivity.class);
+        startActivity(intent);
     }
 
     private void updateKakaoLogin(){
