@@ -2,6 +2,10 @@ package com.example.coversong.fragment;
 
 import static android.content.ContentValues.TAG;
 
+
+import android.Manifest;
+import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
@@ -17,10 +21,14 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.coversong.R;
+import com.example.coversong.main.BoardActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,6 +48,7 @@ import okhttp3.Response;
  *
  */
 public class BoardMic extends Fragment {
+    public static final int SINGLE_PERMISSION = 0;
     private int pausePosition = 0;
     private MediaRecorder recorder;
 
@@ -52,6 +61,8 @@ public class BoardMic extends Fragment {
     private TextView playTimeTextView; // 현재 재생 시간을 나타내는 TextView 객체
     private TextView totalTimeTextView; // 총 재생 시간을 나타내는 TextView 객체
     private ImageView playControlImageView; // 재생/일시정지를 나타내는 ImageView 객체
+
+
 
 
     @Override
@@ -68,6 +79,10 @@ public class BoardMic extends Fragment {
         Button btnRecordStop = view.findViewById(R.id.record_stop);
         Button btnUpload = view.findViewById(R.id.btn_upload);
 
+        seekBar = view.findViewById(R.id.card_seek_bar);
+        playTimeTextView = view.findViewById((R.id.card_play_time_text_view));
+        totalTimeTextView = view.findViewById((R.id.card_total_time_text_view));
+
         playControlImageView = view.findViewById(R.id.card_play_control_image_view);
 
         bringMusicBtn.setOnClickListener(v -> {
@@ -80,12 +95,18 @@ public class BoardMic extends Fragment {
             startRecordCard.setVisibility(View.VISIBLE);
         });
 
+
+
         btnRecordStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 startRecording();
+
             }
         });
+
         btnRecordStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,8 +128,12 @@ public class BoardMic extends Fragment {
         });
 
 
-        return view;}
+        return view;
+    }
+
+
     private void startRecording() {
+
         if (isRecording) {
             return;
         }
@@ -143,6 +168,7 @@ public class BoardMic extends Fragment {
         recorder = null;
         isRecording = false;
         Toast.makeText(getActivity(), "녹음이 중지되었습니다.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), getFilePath() ,Toast.LENGTH_SHORT).show();
     }
     private void uploadFile(String uploadUrl, String filePath, String fileName) {
         File file = new File(filePath);
@@ -215,13 +241,13 @@ public class BoardMic extends Fragment {
     private void startPlaying() {
         mediaPlayer = new MediaPlayer();
         try {
-            mediaPlayer.setDataSource(getFilePath());
+            mediaPlayer.setDataSource(filePath);
             mediaPlayer.prepare();
             mediaPlayer.start();
 
             playControlImageView.setImageResource(R.drawable.ic_baseline_pause_48);
             isPlaying = true;
-
+            Toast.makeText(getActivity(), filePath, Toast.LENGTH_SHORT).show();
             updateSeekBar();
         } catch (IOException e) {
             Log.e(TAG, "startPlaying() failed", e);
@@ -248,18 +274,18 @@ public class BoardMic extends Fragment {
         // 현재 녹음파일의 진행 상황을 가져온다.
         int currentDuration = mediaPlayer.getCurrentPosition();
 
-        // 녹음파일의 총 길이와 현재 진행 상황을 시분초 형태로 변환한다.
-        String totalDurationString = convertDuration(totalDuration);
-        String currentDurationString = convertDuration(currentDuration);
+        if (totalDuration == 0) {
+            seekBar.setProgress(0);
+            playTimeTextView.setText("00:00");
+            totalTimeTextView.setText("00:00");
+        } else {
+            seekBar.setProgress(currentDuration);
+            String currentDurationString = convertDuration(currentDuration);
+            playTimeTextView.setText(currentDurationString);
+            String totalDurationString = convertDuration(totalDuration);
+            totalTimeTextView.setText(totalDurationString);
+        }
 
-        // 진행바에 현재 진행 상황을 설정한다.
-        seekBar.setProgress(currentDuration);
-
-        // 현재 진행 상황을 텍스트뷰에 표시한다.
-        playTimeTextView.setText(currentDurationString);
-
-        // 총 길이를 텍스트뷰에 표시한다.
-        totalTimeTextView.setText(totalDurationString);
     }
     private String convertDuration(long duration) {
         long minute = (duration / 1000) / 60;
