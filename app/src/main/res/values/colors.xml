@@ -10,4 +10,5 @@
     <color name="main">#F36464</color>
     <color name="transparency">#00ff0000</color>
     <color name="gray">#ffaaaaaa</color>
+    <color name="light_gray">#ffeeeeee</color>
 </resources>
