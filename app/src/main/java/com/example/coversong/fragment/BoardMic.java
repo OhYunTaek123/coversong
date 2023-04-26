@@ -44,7 +44,7 @@ public class BoardMic extends Fragment {
     private MediaRecorder recorder;
 
     private boolean isRecording = false;
-    private String filePath = null;
+    public String filePath = null;
     //filePath 에는 파일 저장 경로 입력
     private boolean isPlaying = false; // 재생 중인지 체크하기 위한 변수
     private MediaPlayer mediaPlayer; // MediaPlayer 객체
@@ -63,6 +63,9 @@ public class BoardMic extends Fragment {
         Button startRecordBtn = view.findViewById(R.id.start_record);
         CardView bringMusicCard = view.findViewById(R.id.bring_music_card);
         CardView startRecordCard = view.findViewById(R.id.start_record_card);
+        seekBar = view.findViewById(R.id.card_seek_bar);
+        playTimeTextView = view.findViewById((R.id.card_play_time_text_view));
+        totalTimeTextView = view.findViewById((R.id.card_total_time_text_view));
 
         Button btnRecordStart = view.findViewById(R.id.record_start);
         Button btnRecordStop = view.findViewById(R.id.record_stop);
@@ -215,7 +218,16 @@ public class BoardMic extends Fragment {
     private void startPlaying() {
         mediaPlayer = new MediaPlayer();
         try {
-            mediaPlayer.setDataSource(getFilePath());
+            String filePath = getFilePath();
+            File file = new File(filePath);
+
+            if (!file.exists()) {
+                Toast.makeText(getActivity(), "파일이 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Toast.makeText(getActivity(), filePath, Toast.LENGTH_SHORT).show();
+
+            mediaPlayer.setDataSource(filePath);
             mediaPlayer.prepare();
             mediaPlayer.start();
 
@@ -252,6 +264,8 @@ public class BoardMic extends Fragment {
         String totalDurationString = convertDuration(totalDuration);
         String currentDurationString = convertDuration(currentDuration);
 
+        seekBar.setMax(totalDuration);
+
         // 진행바에 현재 진행 상황을 설정한다.
         seekBar.setProgress(currentDuration);
 
@@ -277,4 +291,5 @@ public class BoardMic extends Fragment {
 
         return min + ":" + sec;
     }
+
 }

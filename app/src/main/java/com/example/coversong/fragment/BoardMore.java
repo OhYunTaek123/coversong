@@ -21,8 +21,8 @@ public class BoardMore extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_board_more, container, false);
 
-        Switch pushSwitch = view.findViewById(R.id.pushSwitch);
-        Switch autoSwitch = view.findViewById(R.id.autoPlay);
+        final Switch pushSwitch = view.findViewById(R.id.pushSwitch);
+        final Switch autoSwitch = view.findViewById(R.id.autoPlay);
 
         pushSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
