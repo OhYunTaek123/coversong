@@ -39,6 +39,6 @@
         android:text="@string/action_pass"
         android:textColor="#FFFFFF"
         android:textSize="19sp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 </LinearLayout>
