@@ -70,7 +70,7 @@
         android:background="@drawable/radius_corner"
         android:padding="10dp">
 
-        <androidx.appcompat.widget.SwitchCompat
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/pushSwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"/>
 
-        <androidx.appcompat.widget.SwitchCompat
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/autoPlay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
