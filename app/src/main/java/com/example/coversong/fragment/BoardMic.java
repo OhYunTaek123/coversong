@@ -237,7 +237,7 @@ public class BoardMic extends Fragment {
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
 
-        StorageReference storageRef = storage.getReference().child("RecordFiles/file.mp3");
+        StorageReference storageRef = storage.getReference().child("RecordFiles/" + System.currentTimeMillis()+ ".mp3");
 
         Uri fileUri = Uri.fromFile(new File(filePath));
 
