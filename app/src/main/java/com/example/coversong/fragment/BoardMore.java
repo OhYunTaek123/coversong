@@ -9,6 +9,7 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import com.example.coversong.R;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 /**
  * 홈 더보기
@@ -21,14 +22,14 @@ public class BoardMore extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_board_more, container, false);
 
-        Switch pushSwitch = (Switch) view.findViewById(R.id.pushSwitch);
-        Switch autoSwitch = (Switch) view.findViewById(R.id.autoPlay);
+        SwitchMaterial pushSwitch = (SwitchMaterial) view.findViewById(R.id.pushSwitch);
+        SwitchMaterial autoSwitch = (SwitchMaterial) view.findViewById(R.id.autoPlay);
 
         pushSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (pushSwitch.isChecked()) {
-                    // 푸시 알림 켜기
+
                 } else {
                     // 푸시 알림 끄기
                 }

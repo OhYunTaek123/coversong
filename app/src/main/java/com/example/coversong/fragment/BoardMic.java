@@ -5,21 +5,25 @@ import static android.content.ContentValues.TAG;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -29,6 +33,15 @@ import androidx.fragment.app.Fragment;
 
 import com.example.coversong.R;
 import com.example.coversong.main.BoardActivity;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -62,6 +75,12 @@ public class BoardMic extends Fragment {
     private TextView totalTimeTextView; // 총 재생 시간을 나타내는 TextView 객체
     private ImageView playControlImageView; // 재생/일시정지를 나타내는 ImageView 객체
 
+    private final DatabaseReference root = FirebaseDatabase.getInstance().getReference("RecordFile"); //
+    private final StorageReference reference = FirebaseStorage.getInstance().getReference();
+    private Uri recordUri;
+
+
+
 
 
 
@@ -84,6 +103,8 @@ public class BoardMic extends Fragment {
         totalTimeTextView = view.findViewById((R.id.card_total_time_text_view));
 
         playControlImageView = view.findViewById(R.id.card_play_control_image_view);
+
+
 
         bringMusicBtn.setOnClickListener(v -> {
             bringMusicCard.setVisibility(View.VISIBLE);
@@ -202,22 +223,45 @@ public class BoardMic extends Fragment {
         });
     }
     private void uploadRecording() {
-        EditText uploadName = getView().findViewById(R.id.upload_name);
-        String fileName = uploadName.getText().toString() + ".mp3";
-        String filePath = getFilePath();
-        String uploadUrl = "http://example.com/upload";
+        if(recordUri != null){
 
-        // 파일을 업로드합니다.
-        uploadFile(uploadUrl, filePath, fileName);
-
-        // 파일이 업로드되었으므로 로컬 저장소에 저장된 파일을 삭제합니다.
-        File file = new File(filePath);
-        file.delete();
-
-        // 파일이 삭제된 후에는 녹음 상태를 초기화합니다.
-        isRecording = false;
-        stopRecording();
+            uploadTofirebase(recordUri);
+        }else{
+            Toast.makeText(getActivity(), "녹음을 해주세요", Toast.LENGTH_SHORT).show();
+        }
     }
+
+    //파이어베이스 녹화파일 업로드
+    private void uploadTofirebase(Uri uri) {
+        StorageReference fileRef = reference.child(System.currentTimeMillis() + "." +
+                getFileExtension(uri));
+
+        fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                //성공시
+                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                //실패시
+            }
+        });
+    }
+
+    private String getFileExtension(Uri uri){
+        ContentResolver Cr = getActivity().getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+
+        return mime.getExtensionFromMimeType(Cr.getType(uri));
+    }
+
     private String getFilePath() {
         // 저장소 경로
         String folderPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/MyRecordings/";
@@ -303,4 +347,5 @@ public class BoardMic extends Fragment {
 
         return min + ":" + sec;
     }
+
 }
