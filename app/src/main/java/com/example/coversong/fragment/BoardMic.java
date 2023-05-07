@@ -32,6 +32,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.coversong.R;
+import com.example.coversong.data.RecordModel;
 import com.example.coversong.main.BoardActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -191,6 +192,7 @@ public class BoardMic extends Fragment {
         Toast.makeText(getActivity(), "녹음이 중지되었습니다.", Toast.LENGTH_SHORT).show();
         Toast.makeText(getActivity(), getFilePath() ,Toast.LENGTH_SHORT).show();
     }
+    /*
     private void uploadFile(String uploadUrl, String filePath, String fileName) {
         File file = new File(filePath);
 
@@ -221,36 +223,37 @@ public class BoardMic extends Fragment {
                 }
             }
         });
-    }
+    } */
     private void uploadRecording() {
-        if(recordUri != null){
+        if(filePath != null){
 
-            uploadTofirebase(recordUri);
+            uploadTofirebase(filePath);
         }else{
             Toast.makeText(getActivity(), "녹음을 해주세요", Toast.LENGTH_SHORT).show();
         }
     }
-
     //파이어베이스 녹화파일 업로드
-    private void uploadTofirebase(Uri uri) {
-        StorageReference fileRef = reference.child(System.currentTimeMillis() + "." +
-                getFileExtension(uri));
+    private void uploadTofirebase(String filePath) {
 
-        fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+
+        StorageReference storageRef = storage.getReference().child("RecordFiles/file.mp3");
+
+        Uri fileUri = Uri.fromFile(new File(filePath));
+
+        UploadTask uploadTask = storageRef.putFile(fileUri);
+
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 //성공시
-                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-
-                    }
-                });
+                Toast.makeText(getActivity(), "업로드 완료!", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 //실패시
+                Toast.makeText(getActivity(), "업로드 실패", Toast.LENGTH_SHORT).show();
             }
         });
     }
