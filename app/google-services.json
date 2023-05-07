@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "79789503223",
+    "project_id": "covery-6fbd0",
+    "storage_bucket": "covery-6fbd0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:79789503223:android:3616d48fbba329bc6cd9f2",
+        "android_client_info": {
+          "package_name": "com.example.coversong"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "79789503223-8436bcjnun35mumas383emke2v8mu5kv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBY8GYwvcAOVckoMYLE9An72tWvij9jVo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "79789503223-8436bcjnun35mumas383emke2v8mu5kv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
