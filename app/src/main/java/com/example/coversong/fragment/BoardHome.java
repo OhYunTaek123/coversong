@@ -19,11 +19,17 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.kakao.sdk.link.LinkApi;
+
+import org.checkerframework.checker.units.qual.A;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,33 +44,45 @@ public class BoardHome extends Fragment {
     StorageReference storageRef = storage.getReference().child("RecordFiles").child("Music");
     private MusicAdapter adapter;
 
+    private  RecyclerView recyclerView;
+    private ArrayList<music> arrayList;
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
+    private RecyclerView.LayoutManager layoutManager;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_board_home, container, false);
 
-        RecyclerView recyclerView = view.findViewById(R.id.Newest_list);
+        recyclerView = view.findViewById(R.id.Newest_list);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        arrayList = new ArrayList<>();
 
-        FirestoreRecyclerOptions<StorageReference> options = new FirestoreRecyclerOptions.Builder<StorageReference>()
-                .setQuery(storageRef, StorageReference.class)
-                .build();
-        adapter = new MusicAdapter(options);
+        database = FirebaseDatabase.getInstance();
+        databaseReference = database.getReference("music");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                arrayList.clear();
+                for (DataSnapshot snapshot1 : snapshot.getChildren()){
+                    music music = snapshot1.getValue(com.example.coversong.fragment.music.class);
+                    arrayList.add(music);
+                }
+                adapter.notifyDataSetChanged();
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                //오류
+            }
+        });
+
+        adapter = new MusicAdapter(new MediaPlayer(), arrayList, getContext());
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         return view;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        adapter.startListening();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        adapter.stopListening();
     }
 }
