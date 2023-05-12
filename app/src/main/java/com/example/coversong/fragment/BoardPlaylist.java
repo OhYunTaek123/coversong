@@ -49,18 +49,18 @@ public class BoardPlaylist extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_board_playlist, container, false);
 
-        BoardPlaylist = getView().findViewById(R.id.BoardPlaylist);
-        music_viewPager = getView().findViewById(R.id.music_viewPager);
-        title_tv = getView().findViewById(R.id.title_tv);
-        currentTime_tv = getView().findViewById(R.id.currentTime_tv);
-        durationTime_tv = getView().findViewById(R.id.durationTime_tv);
-        mediaPos_sb = getView().findViewById(R.id.mediaPos_sb);
-        playlist_btn = getView().findViewById(R.id.playlist_btn);
-        backwardMusic_btn = getView().findViewById(R.id.backwardMusic_btn);
-        playToggle_btn = getView().findViewById(R.id.playToggle_btn);
-        forward_btn = getView().findViewById(R.id.forward_btn);
-        favorite_btn = getView().findViewById(R.id.favorite_btn);
-        musicListPosition_pb = getView().findViewById(R.id.musicListPosition_pb);
+        BoardPlaylist = view.findViewById(R.id.BoardPlaylist);
+        music_viewPager = view.findViewById(R.id.music_viewPager);
+        title_tv = view.findViewById(R.id.title_tv);
+        currentTime_tv = view.findViewById(R.id.currentTime_tv);
+        durationTime_tv = view.findViewById(R.id.durationTime_tv);
+        mediaPos_sb = view.findViewById(R.id.mediaPos_sb);
+        playlist_btn = view.findViewById(R.id.playlist_btn);
+        backwardMusic_btn = view.findViewById(R.id.backwardMusic_btn);
+        playToggle_btn = view.findViewById(R.id.playToggle_btn);
+        forward_btn = view.findViewById(R.id.forward_btn);
+        favorite_btn = view.findViewById(R.id.favorite_btn);
+        musicListPosition_pb = view.findViewById(R.id.musicListPosition_pb);
         return view;
     }
 
@@ -96,7 +96,7 @@ public class BoardPlaylist extends Fragment {
     private void createMusicViewPager(){
         musicViewPagerAdapter = new MusicViewPagerAdapter(this);
         if(musicViewPagerAdapter.items.size() == 0){
-            musicViewPagerAdapter.items.add(new MusicViewpagerItemFragment("title", R.drawable.covery_logo_2, new MusicViewpagerItemFragment.OnContactListener() {
+            musicViewPagerAdapter.items.add(new MusicViewpagerItemFragment("file", R.raw.file, new MusicViewpagerItemFragment.OnContactListener() {
                 @Override
                 public void onContact(MusicViewpagerItemFragment fragment) {
                     title_tv.setText(fragment.title);
@@ -198,9 +198,9 @@ public class BoardPlaylist extends Fragment {
     // 재생, 중지버튼 누를시 이모티콘 변하는 메소드
     private  void updateButtonImage(){
         if(isPlaying){
-            playToggle_btn.setImageResource(R.drawable.ic_baseline_pause_48);
+            playToggle_btn.setBackgroundResource(R.drawable.ic_baseline_pause_48);
         }else{
-            playToggle_btn.setImageResource(R.drawable.ic_baseline_play_arrow_24);
+            playToggle_btn.setBackgroundResource(R.drawable.ic_baseline_play_arrow_24);
         }
     }
 
@@ -323,7 +323,7 @@ public class BoardPlaylist extends Fragment {
                 mediaPos_sb.setMax(mediaDuration);
             }
             if(!pauseSeekbarUpdate){
-                mediaPos_sb.setProgress(msg.getData().getInt("currentTimeLabel"));
+                mediaPos_sb.setProgress(msg.getData().getInt("mediaCurrentPosition"));
             }
         }
     }

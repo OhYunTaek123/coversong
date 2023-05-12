@@ -88,6 +88,7 @@ public class MusicViewpagerItemFragment extends Fragment {
         @Override
         public void run() {
             super.run();
+            /*
             Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
                 @Override
                 public void onGenerated(@Nullable Palette palette) {
@@ -95,7 +96,7 @@ public class MusicViewpagerItemFragment extends Fragment {
                     Message message = handler.obtainMessage();
                     handler.sendMessage(message);
                 }
-            });
+            });*/
         }
     }
     class GeneratedBitmapColorHandler extends Handler{
