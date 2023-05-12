@@ -61,4 +61,9 @@ dependencies {
     implementation "com.kakao.sdk:v2-navi:2.8.3" // 카카오내비
 
     implementation 'com.kyleduo.switchbutton:library:2.0.0'
+
+
+    implementation 'com.google.firebase:firebase-messaging:23.1.2'
 }
+
+apply plugin: 'com.google.gms.google-services'
