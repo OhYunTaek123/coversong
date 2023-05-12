@@ -3,10 +3,7 @@ package com.example.coversong.fragment;
 import static android.content.ContentValues.TAG;
 
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
@@ -23,38 +20,23 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.coversong.R;
-import com.example.coversong.data.RecordModel;
-import com.example.coversong.main.BoardActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 
 import java.io.File;
 import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 /**
  *
@@ -65,6 +47,8 @@ public class BoardMic extends Fragment {
     public static final int SINGLE_PERMISSION = 0;
     private int pausePosition = 0;
     private MediaRecorder recorder;
+
+    private EditText uploadName;
 
     private boolean isRecording = false;
     private String filePath = null;
@@ -236,8 +220,10 @@ public class BoardMic extends Fragment {
     private void uploadTofirebase(String filePath) {
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
+        EditText editText = getView().findViewById(R.id.upload_name);
+        String fileName = editText.getText().toString() + ".mp3";
 
-        StorageReference storageRef = storage.getReference().child("RecordFiles/" + System.currentTimeMillis()+ ".mp3");
+        StorageReference storageRef = storage.getReference().child("RecordFiles/" + fileName);
 
         Uri fileUri = Uri.fromFile(new File(filePath));
 
