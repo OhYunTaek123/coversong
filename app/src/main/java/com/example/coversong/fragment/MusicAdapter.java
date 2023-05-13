@@ -69,7 +69,6 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
             this.item_cover_image_view = itemView.findViewById((R.id.item_cover_image_view));
             this.item_track_text_view = itemView.findViewById(R.id.item_track_text_view);
             this.item_artist_text_view = itemView.findViewById(R.id.item_artist_text_view);
-            playButton = itemView.findViewById(R.id.play_control_image_view);
         }
     }
 }
