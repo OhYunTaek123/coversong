@@ -18,6 +18,8 @@ import com.example.coversong.R;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +28,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 import com.kakao.sdk.link.LinkApi;
 
@@ -41,7 +44,7 @@ import java.util.ArrayList;
  */
 public class BoardHome extends Fragment {
     FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageRef = storage.getReference().child("RecordFiles").child("Music");
+    StorageReference storageRef = storage.getReference().child("RecordFiles");
     private MusicAdapter adapter;
 
     private  RecyclerView recyclerView;
@@ -61,22 +64,23 @@ public class BoardHome extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         arrayList = new ArrayList<>();
 
-        database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("music");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onSuccess(ListResult listResult) {
                 arrayList.clear();
-                for (DataSnapshot snapshot1 : snapshot.getChildren()){
-                    music music = snapshot1.getValue(com.example.coversong.fragment.music.class);
+                for (StorageReference item : listResult.getItems()) {
+                    music music = new music();
+                    music.setImage(item.toString());
+                    music.setMusic_name(item.getName());
+                    music.setMusic_maker("Unknown");
                     arrayList.add(music);
                 }
                 adapter.notifyDataSetChanged();
             }
-
+        }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                //오류
+            public void onFailure(@NonNull Exception e) {
+                // 오류
             }
         });
 
