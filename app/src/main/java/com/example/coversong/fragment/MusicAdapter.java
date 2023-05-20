@@ -2,14 +2,20 @@ package com.example.coversong.fragment;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.GestureDetectorCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -26,11 +32,16 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
     final private MediaPlayer mediaPlayer;
     private ArrayList<music> arrayList;
     private Context context;
+    private LayoutInflater mInflater;
+    private BoardPlaylist boardPlaylist;
+    private FragmentManager fragmentManager;
 
-    public MusicAdapter(MediaPlayer mediaPlayer, ArrayList<music> arrayList, Context context) {
+
+    MusicAdapter(MediaPlayer mediaPlayer, ArrayList<music> arrayList, Context context) {
         this.mediaPlayer = mediaPlayer;
         this.arrayList = arrayList;
         this.context = context;
+        this.fragmentManager = boardPlaylist.getChildFragmentManager();
     }
 
     @NonNull
@@ -49,6 +60,9 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
                 .into(holder.item_cover_image_view);
         holder.item_track_text_view.setText(musicName);
         holder.item_artist_text_view.setText(arrayList.get(position).getMusic_maker());
+        holder.itemView.setOnClickListener(new View.OnClickListener(){
+
+        });
     }
 
 
@@ -69,7 +83,43 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
             this.item_cover_image_view = itemView.findViewById((R.id.item_cover_image_view));
             this.item_track_text_view = itemView.findViewById(R.id.item_track_text_view);
             this.item_artist_text_view = itemView.findViewById(R.id.item_artist_text_view);
-            playButton = itemView.findViewById(R.id.play_control_image_view);
+
+        }
+    }
+    public class RecyclierItemViewClickListener implements RecyclerView.OnItemTouchListener{
+
+        private GestureDetector gestureDetector;
+        private AdapterView.OnItemClickListener listener;
+
+        public RecyclierItemViewClickListener(Context context){
+
+            gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener(){
+                @Override
+                public boolean onSingleTapUp(@NonNull MotionEvent e) {
+                    return true;
+                }
+            });
+        };
+
+        @Override
+        public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+            View childView = rv.findChildViewUnder(e.getX(), e.getY());
+            if (childView != null && gestureDetector.onTouchEvent(e)) {
+                int position = rv.getChildAdapterPosition(childView);
+                listener.onItemClick(position);
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
         }
     }
 }

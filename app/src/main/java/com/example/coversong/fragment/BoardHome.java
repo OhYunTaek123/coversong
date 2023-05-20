@@ -64,6 +64,8 @@ public class BoardHome extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         arrayList = new ArrayList<>();
 
+
+
         storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
             @Override
             public void onSuccess(ListResult listResult) {
@@ -83,10 +85,14 @@ public class BoardHome extends Fragment {
                 // 오류
             }
         });
+        recyclerView.addOnItemTouchListener(new RecyclerViewItemClickListener(getActivity(), new OnItemClickListener() {
+
+        }));
 
         adapter = new MusicAdapter(new MediaPlayer(), arrayList, getContext());
         recyclerView.setAdapter(adapter);
 
         return view;
     }
+
 }
