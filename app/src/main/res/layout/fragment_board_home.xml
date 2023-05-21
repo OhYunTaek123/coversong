@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".fragment.BoardHome">
 
@@ -21,7 +22,7 @@
         android:textSize="25sp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#DDDADA" />
 
@@ -36,6 +37,101 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/Newest_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="500dp" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:orientation="vertical"
+        android:layout_gravity="bottom">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/player_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:background="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:elevation="0dp">
+
+            <SeekBar
+                android:id="@+id/play_list_seek_bar"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:clickable="false"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"
+                android:progressTint="@color/purple_200"
+                android:thumbTint="@color/purple_200"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/player_view"
+                tools:progress="40" />
+
+            <ImageView
+                android:id="@+id/item_cover_image_view2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="60dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/track_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@id/start_pause_btn"
+                app:layout_constraintStart_toEndOf="@id/item_cover_image_view2"
+                app:layout_constraintTop_toTopOf="@id/item_cover_image_view2"
+                tools:text="애국가" />
+
+            <TextView
+                app:layout_constraintStart_toEndOf="@id/item_cover_image_view2"
+                app:layout_constraintEnd_toStartOf="@id/start_pause_btn"
+                app:layout_constraintTop_toBottomOf="@id/track_name"
+                android:layout_marginTop="4dp"
+                android:id="@+id/artist_name"
+                android:layout_width="0dp"
+                android:textSize="13sp"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textColor="@color/gray"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                tools:text="Unknown"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/start_pause_btn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="60dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </LinearLayout>

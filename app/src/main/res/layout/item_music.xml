@@ -28,14 +28,14 @@
         android:singleLine="true"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/myFavorite_btn"
         app:layout_constraintStart_toEndOf="@id/item_cover_image_view"
         app:layout_constraintTop_toTopOf="@id/item_cover_image_view"
         tools:text="애국가" />
 
     <TextView
         app:layout_constraintStart_toEndOf="@id/item_cover_image_view"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/myFavorite_btn"
         app:layout_constraintTop_toBottomOf="@id/item_track_text_view"
         android:layout_marginTop="4dp"
         android:id="@+id/item_artist_text_view"
@@ -49,4 +49,18 @@
         android:layout_marginEnd="16dp"
         tools:text="대한민국"
         android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/myFavorite_btn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/baseline_favorite_border_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
