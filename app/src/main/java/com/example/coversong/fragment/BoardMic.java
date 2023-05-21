@@ -3,6 +3,7 @@ package com.example.coversong.fragment;
 import static android.content.ContentValues.TAG;
 
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
@@ -58,7 +59,7 @@ public class BoardMic extends Fragment {
     private MediaRecorder recorder;
 
     private EditText uploadName;
-
+    private  ImageView isRecord;
     private boolean isRecording = false;
     private String filePath = null;
     //filePath 에는 파일 저장 경로 입력
@@ -78,6 +79,7 @@ public class BoardMic extends Fragment {
 
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -95,6 +97,7 @@ public class BoardMic extends Fragment {
         seekBar = view.findViewById(R.id.card_seek_bar);
         playTimeTextView = view.findViewById((R.id.card_play_time_text_view));
         totalTimeTextView = view.findViewById((R.id.card_total_time_text_view));
+        isRecord = view.findViewById(R.id.is_record_confirm);
 
         playControlImageView = view.findViewById(R.id.card_play_control_image_view);
 
@@ -158,6 +161,7 @@ public class BoardMic extends Fragment {
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+        isRecord.setVisibility(View.VISIBLE);
 
         // 녹음 파일 경로 설정
         filePath = getActivity().getExternalFilesDir(null).getAbsolutePath() + "/" + System.currentTimeMillis() + ".mp4";
@@ -184,6 +188,7 @@ public class BoardMic extends Fragment {
         isRecording = false;
         Toast.makeText(getActivity(), "녹음이 중지되었습니다.", Toast.LENGTH_SHORT).show();
         Toast.makeText(getActivity(), getFilePath() ,Toast.LENGTH_SHORT).show();
+        isRecord.setVisibility(View.INVISIBLE);
     }
     /*
     private void uploadFile(String uploadUrl, String filePath, String fileName) {

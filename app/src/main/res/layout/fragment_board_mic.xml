@@ -119,6 +119,13 @@
                     android:layout_height="wrap_content"
                     android:text="@string/btnStop"
                     android:textSize="15sp"/>
+                <ImageView
+                    android:id="@+id/is_record_confirm"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/baseline_mic_24"
+                    android:visibility="invisible"/>
             </LinearLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
