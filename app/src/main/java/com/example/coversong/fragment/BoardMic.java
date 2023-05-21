@@ -33,10 +33,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.kakao.sdk.user.UserApiClient;
+import com.kakao.sdk.user.model.User;
 
 
 import java.io.File;
 import java.io.IOException;
+
+import kotlin.Unit;
+import kotlin.jvm.functions.Function2;
 
 /**
  *
@@ -223,24 +228,23 @@ public class BoardMic extends Fragment {
         EditText editText = getView().findViewById(R.id.upload_name);
         String fileName = editText.getText().toString() + ".mp3";
 
-        StorageReference storageRef = storage.getReference().child("RecordFiles/" + fileName);
+        UserApiClient.getInstance().me((user, throwable) -> {
+            if(user!=null){
+                Uri fileUri = Uri.fromFile(new File(filePath));
+                StorageReference storageRef = storage.getReference().child("RecordFiles/"+ user.getId() + fileName);
 
-        Uri fileUri = Uri.fromFile(new File(filePath));
+                UploadTask uploadTask = storageRef.putFile(fileUri);
+                uploadTask.addOnSuccessListener(taskSnapshot -> {
+                    //성공시
+                    Toast.makeText(getActivity(), "업로드 완료!", Toast.LENGTH_SHORT).show();
+                }).addOnFailureListener(e -> {
+                    //실패시
+                    Toast.makeText(getActivity(), "업로드 실패", Toast.LENGTH_SHORT).show();
+                });
+            }else if(throwable != null){
 
-        UploadTask uploadTask = storageRef.putFile(fileUri);
-
-        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                //성공시
-                Toast.makeText(getActivity(), "업로드 완료!", Toast.LENGTH_SHORT).show();
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                //실패시
-                Toast.makeText(getActivity(), "업로드 실패", Toast.LENGTH_SHORT).show();
-            }
+            return null;
         });
     }
 
@@ -336,5 +340,7 @@ public class BoardMic extends Fragment {
 
         return min + ":" + sec;
     }
+
+
 
 }

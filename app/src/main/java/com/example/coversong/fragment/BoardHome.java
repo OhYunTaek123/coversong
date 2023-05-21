@@ -85,9 +85,9 @@ public class BoardHome extends Fragment {
                 // 오류
             }
         });
-        recyclerView.addOnItemTouchListener(new RecyclerViewItemClickListener(getActivity(), new OnItemClickListener() {
+        /* recyclerView.addOnItemTouchListener(new RecyclerViewItemClickListener(getActivity(), new OnItemClickListener() {
 
-        }));
+        })); */
 
         adapter = new MusicAdapter(new MediaPlayer(), arrayList, getContext());
         recyclerView.setAdapter(adapter);

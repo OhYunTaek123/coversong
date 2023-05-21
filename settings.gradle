@@ -2,8 +2,9 @@ dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
+        jcenter()
         mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
+        // Warning: this repository is going to shut down soon
         maven { url 'https://devrepo.kakao.com/nexus/content/groups/public/' }
         maven { url "https://www.jitpack.io" }
     }

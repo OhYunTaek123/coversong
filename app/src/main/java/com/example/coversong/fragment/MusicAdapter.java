@@ -41,7 +41,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
         this.mediaPlayer = mediaPlayer;
         this.arrayList = arrayList;
         this.context = context;
-        this.fragmentManager = boardPlaylist.getChildFragmentManager();
+        /* this.fragmentManager = boardPlaylist.getChildFragmentManager(); */
     }
 
     @NonNull
@@ -60,9 +60,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
                 .into(holder.item_cover_image_view);
         holder.item_track_text_view.setText(musicName);
         holder.item_artist_text_view.setText(arrayList.get(position).getMusic_maker());
-        holder.itemView.setOnClickListener(new View.OnClickListener(){
 
-        });
     }
 
 
@@ -86,6 +84,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
 
         }
     }
+    /*
     public class RecyclierItemViewClickListener implements RecyclerView.OnItemTouchListener{
 
         private GestureDetector gestureDetector;
@@ -121,5 +120,5 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
         public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
 
         }
-    }
+    }*/
 }
