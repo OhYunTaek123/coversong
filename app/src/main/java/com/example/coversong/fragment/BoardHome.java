@@ -1,5 +1,6 @@
 package com.example.coversong.fragment;
 
+import android.annotation.SuppressLint;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -58,11 +59,13 @@ public class BoardHome extends Fragment {
     private ArrayList<music> arrayList;
     private RecyclerView.LayoutManager layoutManager;
     private ImageView start_pause_btn;
+    private  ImageView item_cover_image_view2;
     private TextView track_name;
     private TextView artist_name;
     private SeekBar play_list_seek_bar;
     private MediaPlayer mediaPlayer;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -73,6 +76,7 @@ public class BoardHome extends Fragment {
         track_name = view.findViewById(R.id.track_name);
         artist_name = view.findViewById(R.id.artist_name);
         play_list_seek_bar = view.findViewById(R.id.play_list_seek_bar);
+        item_cover_image_view2 = view.findViewById(R.id.item_cover_image_view2);
 
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
@@ -118,6 +122,7 @@ public class BoardHome extends Fragment {
                 String musicUrl = clickedMusic.getImage();
                 isMusicPlaying = true;
                 start_pause_btn.setImageResource(R.drawable.ic_baseline_pause_48);
+                item_cover_image_view2.setImageResource(R.drawable.baseline_audiotrack_24);
                 playMusic(musicUrl);
                 updateUI(clickedMusic);
             }
