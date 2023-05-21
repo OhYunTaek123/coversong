@@ -2,20 +2,16 @@ package com.example.coversong.fragment;
 
 import android.content.Context;
 import android.media.MediaPlayer;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.view.GestureDetectorCompat;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -32,16 +28,13 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
     final private MediaPlayer mediaPlayer;
     private ArrayList<music> arrayList;
     private Context context;
-    private LayoutInflater mInflater;
-    private BoardPlaylist boardPlaylist;
-    private FragmentManager fragmentManager;
+    private OnItemClickListener onItemClickListener;
+    boolean isFavorite = false;
 
-
-    MusicAdapter(MediaPlayer mediaPlayer, ArrayList<music> arrayList, Context context) {
+    public MusicAdapter(MediaPlayer mediaPlayer, ArrayList<music> arrayList, Context context) {
         this.mediaPlayer = mediaPlayer;
         this.arrayList = arrayList;
         this.context = context;
-        /* this.fragmentManager = boardPlaylist.getChildFragmentManager(); */
     }
 
     @NonNull
@@ -52,18 +45,44 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
         return new MusicViewHolder(view);
     }
 
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
     @Override
     public void onBindViewHolder(@NonNull MusicViewHolder holder, int position) {
+        holder.myFavorite_btn.setBackgroundResource(R.drawable.baseline_favorite_border_24);
+
         String musicName = arrayList.get(position).getMusic_name();
         Glide.with(holder.itemView)
                 .load(arrayList.get(position).getImage())
                 .into(holder.item_cover_image_view);
         holder.item_track_text_view.setText(musicName);
         holder.item_artist_text_view.setText(arrayList.get(position).getMusic_maker());
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onItemClickListener != null) {
+                    int clickedPosition = holder.getAdapterPosition();
+                    onItemClickListener.onItemClick(clickedPosition);
+                }
+            }
+        });
+        holder.myFavorite_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 클릭 시 즐겨찾기 상태 변경
+                isFavorite = !isFavorite;
+                if (isFavorite) {
+                    holder.myFavorite_btn.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
+                } else {
+                    holder.myFavorite_btn.setBackgroundResource(R.drawable.baseline_favorite_border_24);
+                }
+            }
+        });
     }
-
-
 
     @Override
     public int getItemCount(){
@@ -74,51 +93,14 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
         ImageView item_cover_image_view;
         TextView item_track_text_view;
         TextView item_artist_text_view;
-        Button playButton;
+        ImageView myFavorite_btn;
 
         public MusicViewHolder(@NonNull View itemView) {
             super(itemView);
             this.item_cover_image_view = itemView.findViewById((R.id.item_cover_image_view));
             this.item_track_text_view = itemView.findViewById(R.id.item_track_text_view);
             this.item_artist_text_view = itemView.findViewById(R.id.item_artist_text_view);
-
+            this.myFavorite_btn = itemView.findViewById(R.id.myFavorite_btn);
         }
     }
-    /*
-    public class RecyclierItemViewClickListener implements RecyclerView.OnItemTouchListener{
-
-        private GestureDetector gestureDetector;
-        private AdapterView.OnItemClickListener listener;
-
-        public RecyclierItemViewClickListener(Context context){
-
-            gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener(){
-                @Override
-                public boolean onSingleTapUp(@NonNull MotionEvent e) {
-                    return true;
-                }
-            });
-        };
-
-        @Override
-        public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-            View childView = rv.findChildViewUnder(e.getX(), e.getY());
-            if (childView != null && gestureDetector.onTouchEvent(e)) {
-                int position = rv.getChildAdapterPosition(childView);
-                listener.onItemClick(position);
-                return true;
-            }
-            return false;
-        }
-
-        @Override
-        public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-
-        }
-
-        @Override
-        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-        }
-    }*/
 }
