@@ -1,5 +1,7 @@
 package com.example.coversong.fragment;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -7,9 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.example.coversong.R;
+import com.example.coversong.main.MainActivity;
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.kakao.sdk.user.UserApiClient;
 
 /**
  * 홈 더보기
@@ -17,6 +22,7 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
  */
 public class BoardMore extends Fragment {
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -46,7 +52,22 @@ public class BoardMore extends Fragment {
                 }
             }
         });
-
+        view.findViewById(R.id.btn_logout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserApiClient.getInstance().logout(error-> {
+                    if(error != null) {
+                        Toast.makeText(getActivity(), "로그아웃 실패", Toast.LENGTH_SHORT);
+                    } else {
+                        Toast.makeText(getActivity(), "로그아웃 성공", Toast.LENGTH_SHORT);
+                    }
+                    Intent i = new Intent(getActivity(), MainActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+                    return null;
+                });
+            }
+        });
         return view;
     }
 }

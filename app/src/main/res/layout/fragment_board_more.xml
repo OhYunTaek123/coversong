@@ -128,6 +128,12 @@
             android:textSize="16sp"
             android:textColor="@color/black"
             android:drawableRight="@drawable/baseline_arrow_forward_ios_24"/>
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:rotationX="4"
+            android:text="로그아웃" />
     </LinearLayout>
 
 </LinearLayout>
