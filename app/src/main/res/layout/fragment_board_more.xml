@@ -130,4 +130,11 @@
             android:drawableRight="@drawable/baseline_arrow_forward_ios_24"/>
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:rotationX="4"
+        android:text="로그아웃" />
+
 </LinearLayout>

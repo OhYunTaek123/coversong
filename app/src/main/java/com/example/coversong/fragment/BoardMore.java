@@ -1,11 +1,7 @@
 package com.example.coversong.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +9,15 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import com.example.coversong.R;
-import com.example.coversong.main.BoardActivity;
 import com.example.coversong.main.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.kakao.sdk.user.UserApiClient;
 
 /**
  * 홈 더보기
@@ -36,6 +35,7 @@ public class BoardMore extends Fragment {
         Switch autoSwitch = (Switch) view.findViewById(R.id.autoPlay);
 
         //Intent intent = new Intent(MainActivity.this, MainActivity.class);
+
 
 
 
@@ -89,6 +89,25 @@ public class BoardMore extends Fragment {
                 }
             }
         });
+
+        view.findViewById(R.id.btn_logout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserApiClient.getInstance().logout(error-> {
+                   if(error != null) {
+                       Toast.makeText(getActivity(), "로그아웃 실패", Toast.LENGTH_SHORT);
+                   } else {
+                       Toast.makeText(getActivity(), "로그아웃 성공", Toast.LENGTH_SHORT);
+                   }
+                   Intent i = new Intent(getActivity(), MainActivity.class);
+                   i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                   startActivity(i);
+                   return null;
+                });
+            }
+        });
+
+
 
         return view;
     }
