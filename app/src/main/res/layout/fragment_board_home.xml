@@ -7,14 +7,10 @@
     tools:context=".fragment.BoardHome">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/covery"
-        android:gravity="start"
-        android:text="@string/covery"
-        android:textColor="@android:color/black"
-        android:textSize="50sp" />
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:src="@drawable/covery_logo_2"/>
 
     <TextView
         android:id="@+id/rangking"

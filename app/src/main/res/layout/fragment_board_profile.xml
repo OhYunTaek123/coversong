@@ -21,7 +21,7 @@
 
         <ImageView
             android:id="@+id/account_profile"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:src="@drawable/ic_profile"
             android:layout_width="120dp"
             android:layout_height="120dp"
@@ -30,79 +30,76 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"/>
 
-        <Button
-            android:id="@+id/account_btn_sign_out"
-            android:text="follow"
-            android:layout_toRightOf="@id/account_profile"
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"/>
-
         <LinearLayout
-            android:gravity="center"
-            android:layout_toRightOf="@id/account_profile"
-            android:layout_above="@id/account_btn_sign_out"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/account_profile"
+            android:gravity="center">
 
             <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
+                android:orientation="vertical">
+
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/Post"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/account_post_count"
-                    android:textSize="15sp"
-                    android:text="@string/count"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="@string/count"
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
+                android:orientation="vertical">
+
                 <TextView
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:text="@string/Follower"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="@string/Follower"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/account_follower_count"
-                    android:textSize="15sp"
-                    android:text="@string/count"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="@string/count"
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
+                android:orientation="vertical">
+
                 <TextView
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:text="@string/Following"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="@string/Following"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/account_following_count"
-                    android:textSize="15sp"
-                    android:text="@string/count"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="@string/count"
+                    android:textSize="15sp" />
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
@@ -132,39 +129,25 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"/>
     </LinearLayout>
+
     <LinearLayout
-        android:layout_marginTop="16dp"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="223dp"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical">
+
         <TextView
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:text="@string/myComment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/myComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="16dp"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:textSize="20sp"
-            android:textStyle="bold"
             android:text="@string/myFavorite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/myFavorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp" />
     </LinearLayout>
 
 </LinearLayout>

@@ -12,10 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.coversong.R;
 import com.google.android.exoplayer2.util.Log;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.OAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
 import com.kakao.sdk.auth.model.OAuthToken;
 import com.kakao.sdk.user.UserApiClient;
 
@@ -23,6 +26,10 @@ import kotlin.Unit;
 import kotlin.jvm.functions.Function2;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -43,8 +50,9 @@ public class MainActivity extends AppCompatActivity {
         Function2<OAuthToken , Throwable, Unit> callback = (oAuthToken , throwable) -> {
             Log.e(TAG, "CallBack Method");
             if (oAuthToken != null) {
-                FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                AuthCredential credential = OAuthProvider.getCredential("kakao.com", null, oAuthToken.getAccessToken());
+                //FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+                /*AuthCredential credential = OAuthProvider.getCredential("kakao.com", null, oAuthToken.getAccessToken());
 
                 mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -55,7 +63,8 @@ public class MainActivity extends AppCompatActivity {
                             Log.w(TAG, "서버 로그인 실패", task.getException());
                         }
                     }
-                });
+                });*/
+
                 updateKakaoLogin();
             }else{
                 Log.e(TAG, "invoke: login fail");

@@ -30,6 +30,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -39,6 +41,8 @@ import com.kakao.sdk.user.model.User;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function2;
@@ -232,6 +236,17 @@ public class BoardMic extends Fragment {
             if(user!=null){
                 Uri fileUri = Uri.fromFile(new File(filePath));
                 StorageReference storageRef = storage.getReference().child("RecordFiles/"+ user.getId() + fileName);
+                String userId = String.valueOf(user.getId());
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                DocumentReference docRef = db.collection("user").document(userId);
+                Map<String, Object> id = new HashMap<>();
+                id.put("id", user.getId());
+                id.put("video", "RecordFiles/"+ user.getId()+fileName);
+
+                assert user.getId() != null;
+
+                docRef.set(id).addOnSuccessListener(documentReference -> Log.d(TAG, "Success add RecordFiles"))
+                        .addOnFailureListener(e -> com.google.android.exoplayer2.util.Log.w(TAG, "Error", e));
 
                 UploadTask uploadTask = storageRef.putFile(fileUri);
                 uploadTask.addOnSuccessListener(taskSnapshot -> {
