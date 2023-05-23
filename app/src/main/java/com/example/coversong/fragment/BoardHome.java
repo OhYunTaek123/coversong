@@ -192,10 +192,12 @@ public class BoardHome extends Fragment {
     }
 
     private void updateSeekBar(SeekBar seekBar) {
-        int currentPosition = mediaPlayer.getCurrentPosition();
-        int totalDuration = mediaPlayer.getDuration();
-        seekBar.setMax(totalDuration);
-        seekBar.setProgress(currentPosition);
+        if (mediaPlayer != null) {
+            int currentPosition = mediaPlayer.getCurrentPosition();
+            int totalDuration = mediaPlayer.getDuration();
+            seekBar.setMax(totalDuration);
+            seekBar.setProgress(currentPosition);
+        }
 
         Handler handler = new Handler();
         Runnable runnable = new Runnable() {
@@ -210,18 +212,42 @@ public class BoardHome extends Fragment {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (fromUser) {
+                if (fromUser && mediaPlayer != null) {
                     mediaPlayer.seekTo(progress);
                 }
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                mediaPlayer.pause();
+                if (mediaPlayer != null) {
+                    mediaPlayer.pause();
+                }
             }
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                mediaPlayer.start();
+                if (mediaPlayer != null) {
+                    mediaPlayer.start();
+                }
             }
         });
+    }
+
+    private void releaseMediaPlayer() {
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        releaseMediaPlayer();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        releaseMediaPlayer();
     }
 }
