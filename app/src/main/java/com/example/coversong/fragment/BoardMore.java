@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.coversong.R;
@@ -28,9 +29,16 @@ public class BoardMore extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_board_more, container, false);
 
+        TextView user_id = view.findViewById(R.id.user_id);
         SwitchMaterial pushSwitch = (SwitchMaterial) view.findViewById(R.id.pushSwitch);
         SwitchMaterial autoSwitch = (SwitchMaterial) view.findViewById(R.id.autoPlay);
-
+        UserApiClient.getInstance().me((user, throwable) -> {
+            if(user!=null){
+                String userId = String.valueOf(user.getId());
+                user_id.setText(userId);
+            }
+            return null;
+        });
         pushSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

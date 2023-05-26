@@ -45,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="15dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:cardCornerRadius="10dp"
         app:cardElevation="8dp">
         <LinearLayout
@@ -53,13 +53,32 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_margin="15dp">
-            <android.widget.Button
-                android:id="@+id/btn_bring"
-                android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/btnBring"
-                android:textSize="15sp"
-                android:layout_margin="10dp"/>
+                android:text="@string/bring_view"
+                android:textSize="20sp"
+                android:layout_margin="5dp"
+                android:textStyle="bold"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <android.widget.Button
+                    android:id="@+id/btn_bring"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/back_frame2"
+                    android:text="@string/btnBring"
+                    android:textSize="16sp"
+                    android:layout_margin="10dp"/>
+                <TextView
+                    android:id="@+id/select_filePath"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textColor="@color/gray"
+                    android:text="@string/file_name"/>
+            </LinearLayout>
             <EditText
                 android:id="@+id/recordUpload_name"
                 android:layout_width="match_parent"
@@ -67,14 +86,70 @@
                 android:layout_margin="5dp"
                 android:padding="10dp"
                 android:background="@drawable/edittext_rounded_style"
-                android:text="@string/musicName"
+                android:hint="@string/musicName"
                 android:textColorHint="@color/gray"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:padding="5dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/edittext_rounded_style">
+                <SeekBar
+                    android:id="@+id/card_seek_bar2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="30dp"
+                    android:maxHeight="4dp"
+                    android:minHeight="4dp"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:paddingTop="10dp"
+                    android:progressDrawable="@drawable/player_seek_background"
+                    android:thumb="@drawable/player_seek_thumb"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:progress="40"
+                    tools:ignore="MissingConstraints" />
+                <TextView
+                    android:id="@+id/card_play_time_text_view2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/purple_200"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/card_seek_bar2"
+                    app:layout_constraintTop_toBottomOf="@id/card_seek_bar2"
+                    tools:text="00:00" />
+                <TextView
+                    android:id="@+id/card_total_time_text_view2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@android:color/darker_gray"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@id/card_seek_bar2"
+                    app:layout_constraintTop_toBottomOf="@id/card_seek_bar2"
+                    tools:text="00:00" />
+                <ImageView
+                    android:id="@+id/card_play_control_image_view2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_baseline_play_arrow_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:tint="@color/black"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
             <android.widget.Button
                 android:id="@+id/btn_recordUpload"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/back_frame2"
                 android:text="@string/btnUpload"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 android:layout_margin="10dp"/>
         </LinearLayout>
 
@@ -85,7 +160,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="15dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:cardCornerRadius="10dp"
         app:cardElevation="8dp">
         <LinearLayout
@@ -93,6 +168,13 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_margin="15dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/record_view"
+                android:textSize="20sp"
+                android:layout_margin="5dp"
+                android:textStyle="bold"/>
             <EditText
                 android:id="@+id/upload_name"
                 android:layout_width="match_parent"
@@ -110,15 +192,17 @@
                     android:id="@+id/record_start"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/back_frame2"
+                    android:textSize="16dp"
                     android:text="@string/btnRecord"
-                    android:textSize="15sp"
                     android:layout_marginRight="10dp"/>
                 <android.widget.Button
                     android:id="@+id/record_stop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/btnStop"
-                    android:textSize="15sp"/>
+                    android:background="@drawable/back_frame2"
+                    android:textSize="16dp"
+                    android:text="@string/btnStop"/>
                 <ImageView
                     android:id="@+id/is_record_confirm"
                     android:layout_width="30dp"
@@ -129,8 +213,10 @@
             </LinearLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp">
+                android:layout_height="80dp"
+                android:padding="5dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/edittext_rounded_style">
                 <SeekBar
                     android:id="@+id/card_seek_bar"
                     android:layout_width="0dp"
@@ -142,6 +228,7 @@
                     android:minHeight="4dp"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
+                    android:paddingTop="10dp"
                     android:progressDrawable="@drawable/player_seek_background"
                     android:thumb="@drawable/player_seek_thumb"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -182,8 +269,9 @@
                 android:id="@+id/btn_upload"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/back_frame2"
                 android:text="@string/btnUpload"
-                android:textSize="15sp"
+                android:textSize="16dp"
                 android:layout_margin="10dp"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
