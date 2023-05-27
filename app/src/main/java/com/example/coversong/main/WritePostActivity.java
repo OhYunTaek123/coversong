@@ -60,6 +60,8 @@ public class WritePostActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "DocumentSnapshot written with ID" + documentReference.getId());
+                        Intent intent = new Intent(WritePostActivity.this, PostMiddleActivity.class);
+                        startActivity(intent);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
