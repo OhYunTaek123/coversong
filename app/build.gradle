@@ -83,7 +83,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-firestore:24.6.0'
-
+    implementation 'com.google.firebase:firebase-messaging:23.1.2'
+    implementation 'com.google.firebase:firebase-auth:22.0.0'
+    implementation "com.google.firebase:firebase-database:20.2.2"
 
     implementation 'androidx.palette:palette:1.0.0'
 

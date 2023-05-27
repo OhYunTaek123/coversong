@@ -42,6 +42,11 @@
                     android:scheme="kakaoc9e8aedbe9321aa528c3a2c2c28336db" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.example.coversong.main.PostMiddleActivity"
+        /><activity
+        android:name="com.example.coversong.main.WritePostActivity"
+        />
 
         <activity android:name=".main.BoardActivity" />
     </application>

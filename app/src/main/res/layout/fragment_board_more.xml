@@ -71,7 +71,7 @@
         android:background="@drawable/radius_corner"
         android:padding="10dp">
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
+        <Switch
             android:id="@+id/pushSwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"/>
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
+        <Switch
             android:id="@+id/autoPlay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -103,6 +103,7 @@
         android:padding="10dp">
 
         <TextView
+            android:id="@+id/floatingActionButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"

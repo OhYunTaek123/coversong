@@ -1,5 +1,7 @@
 package com.example.coversong.fragment;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.view.LayoutInflater;
@@ -18,11 +20,26 @@ import com.bumptech.glide.Glide;
 import com.example.coversong.R;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.exoplayer2.util.Log;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.kakao.sdk.user.UserApiClient;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHolder> {
     final private MediaPlayer mediaPlayer;
@@ -78,8 +95,105 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
                 // 클릭 시 즐겨찾기 상태 변경
                 isFavorite = !isFavorite;
                 if (isFavorite) {
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    String filePath = "RecordFiles/" + musicName;
+                    CollectionReference userRef = db.collection("user");
+                    userRef.whereEqualTo("video", filePath).get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if(task.isSuccessful()){
+                                        for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                                            DocumentReference docRef = userRef.document(documentSnapshot.getId());
+                                            docRef.update("like", FieldValue.increment(1))
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void unused) {
+                                                            Log.d(TAG, "like update success");
+                                                        }
+                                                    }).addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Log.w(TAG, "error updating like");
+                                                        }
+                                                    });
+                                        }
+                                    }else{
+                                        Log.d(TAG, "Error getting documents(addLike) :", task.getException());
+                                    }
+                                }
+                            });
+                    UserApiClient.getInstance().me((user, throwable) -> {
+                        String userId = String.valueOf(user.getId());
+                        String playlistCollection = userId + "playlist";
+                        CollectionReference myRef = db.collection(playlistCollection);
+                        Map<String, Object> playlistUpdate = new HashMap<>();
+                        playlistUpdate.put("videoUrl", filePath);
+
+                        myRef.add(playlistUpdate).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Log.d(TAG, "DocumentSnapshot successfully written");
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error writing document", e);
+                            }
+                        });
+                        return null;
+                    });
+
                     holder.myFavorite_btn.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
                 } else {
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    String filePath = "RecordFiles/" + musicName;
+                    CollectionReference userRef = db.collection("user");
+                    userRef.whereEqualTo("video", filePath).get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if(task.isSuccessful()){
+                                        for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                                            DocumentReference docRef = userRef.document(documentSnapshot.getId());
+                                            docRef.update("like", FieldValue.increment(-1))
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void unused) {
+                                                            Log.d(TAG, "like update success");
+                                                        }
+                                                    }).addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Log.w(TAG, "error updating like");
+                                                        }
+                                                    });
+                                        }
+                                    }else{
+                                        Log.d(TAG, "Error getting documents(addLike) :", task.getException());
+                                    }
+                                }
+                            });
+                    UserApiClient.getInstance().me((user, throwable) -> {
+                        String playlistCollection = user.getId() + "playlist";
+                        CollectionReference myRef = db.collection(playlistCollection);
+                        Query query = myRef.whereEqualTo("videoUrl", filePath);
+                        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if(task.isSuccessful()){
+                                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                                        db.collection(playlistCollection).document(documentSnapshot.getId()).delete();
+                                    }
+                                }else{
+                                    Log.d(TAG, "플레이리스트 제거 실패", task.getException());
+                                }
+                            }
+                        });
+
+                        return null;
+                    });
+
                     holder.myFavorite_btn.setBackgroundResource(R.drawable.baseline_favorite_border_24);
                 }
             }
