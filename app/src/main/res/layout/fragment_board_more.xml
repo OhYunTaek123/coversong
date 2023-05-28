@@ -122,6 +122,7 @@
             android:layout_marginRight="5dp"/>
 
         <TextView
+            android:id="@+id/goAnnounce_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="15dp"

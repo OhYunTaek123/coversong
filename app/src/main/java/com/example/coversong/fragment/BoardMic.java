@@ -251,13 +251,13 @@ public class BoardMic extends Fragment {
         UserApiClient.getInstance().me((user, throwable) -> {
             if(user!=null){
                 Uri fileUri = Uri.fromFile(new File(filePath));
-                StorageReference storageRef = storage.getReference().child("RecordFiles/"+ user.getId() + fileName);
+                StorageReference storageRef = storage.getReference().child("RecordFiles/"+ user.getId() + "!@" + fileName);
                 String userId = String.valueOf(user.getId());
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 DocumentReference docRef = db.collection("user").document(userId);
                 Map<String, Object> id = new HashMap<>();
                 id.put("id", user.getId());
-                id.put("video", "RecordFiles/"+ user.getId()+fileName);
+                id.put("video", "RecordFiles/"+ user.getId()+"!@"+fileName);
 
                 assert user.getId() != null;
 
@@ -286,13 +286,13 @@ public class BoardMic extends Fragment {
         UserApiClient.getInstance().me((user, throwable) -> {
             if(user!=null){
                 Uri fileUri = Uri.fromFile(new File(filePath));
-                StorageReference storageRef = storage.getReference().child("RecordFiles/"+ user.getId() + fileName);
+                StorageReference storageRef = storage.getReference().child("RecordFiles/"+user.getId() + "!@"+ fileName);
                 String userId = String.valueOf(user.getId());
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 DocumentReference docRef = db.collection("user").document(userId);
                 Map<String, Object> id = new HashMap<>();
                 id.put("id", user.getId());
-                id.put("video", "RecordFiles/"+ user.getId()+fileName);
+                id.put("video", "RecordFiles/"+ user.getId()+"!@"+fileName);
 
                 assert user.getId() != null;
 

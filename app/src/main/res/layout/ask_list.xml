@@ -10,17 +10,17 @@
         android:src="@drawable/covery_logo_2"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listView"
+        android:id="@+id/ask_listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1" />
 
     <Button
-        android:id="@+id/reg_button"
+        android:id="@+id/ask_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/purple_200"
-        android:text="공지사항 작성"
+        android:text="문의 작성"
         android:textColor="#FFFFFF" />
 
 </LinearLayout>

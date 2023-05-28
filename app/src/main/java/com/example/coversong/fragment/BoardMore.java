@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.coversong.R;
+import com.example.coversong.main.AnnounceActivity;
 import com.example.coversong.main.MainActivity;
 import com.example.coversong.main.PostMiddleActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,6 +38,7 @@ public class BoardMore extends Fragment {
         Switch pushSwitch = (Switch) view.findViewById(R.id.pushSwitch);
         Switch autoSwitch = (Switch) view.findViewById(R.id.autoPlay);
         TextView floatingActionButton = view.findViewById(R.id.floatingActionButton);
+        TextView goAnnounce_btn = view.findViewById(R.id.goAnnounce_btn);
 
         UserApiClient.getInstance().me((user, throwable) -> {
             if(user!=null){
@@ -130,7 +132,13 @@ public class BoardMore extends Fragment {
                 startActivity(intent);
             }
         });
-
+        goAnnounce_btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AnnounceActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }

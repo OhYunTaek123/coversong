@@ -77,8 +77,18 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
                 .load(arrayList.get(position).getImage())
                 .placeholder(R.drawable.baseline_audiotrack_24)
                 .into(holder.item_cover_image_view);
-        holder.item_track_text_view.setText(musicName);
-        holder.item_artist_text_view.setText(arrayList.get(position).getMusic_maker());
+        String[] musicDataSplit = musicName.split("!@");
+        String my_musicName = "";
+        String artistName = "";
+        if (musicDataSplit.length >= 2) {
+            artistName = musicDataSplit[0];
+            my_musicName = musicDataSplit[1];
+            holder.item_track_text_view.setText(my_musicName);
+            holder.item_artist_text_view.setText(artistName);
+        }else {
+            holder.item_track_text_view.setText(musicName);
+            holder.item_artist_text_view.setText(arrayList.get(position).getMusic_maker());
+        }
         holder.item_cover_image_view.setImageResource(R.drawable.baseline_audiotrack_24);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

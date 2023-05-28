@@ -18,9 +18,24 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/post_item_view"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="제목" />
+    <TextView
+        android:id="@+id/post_name_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/gray"
+        android:textSize="13sp"
+        app:layout_constraintLeft_toRightOf="@id/post_item_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="ID" />
 
     <TextView
         app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +46,6 @@
         android:layout_width="0dp"
         android:textSize="13sp"
         android:maxLines="30"
-        android:singleLine="true"
         android:ellipsize="end"
         android:textColor="@color/black"
         android:layout_marginStart="16dp"

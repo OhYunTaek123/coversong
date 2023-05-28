@@ -172,8 +172,19 @@ public class BoardHome extends Fragment {
     }
 
     private void updateUI(music selectedMusic) {
-        track_name.setText(selectedMusic.getMusic_name());
-        artist_name.setText("Unknown");
+        String play_musicName =  selectedMusic.getMusic_name();
+        String[] musicDataSplit = play_musicName.split("!@");
+        String my_musicName = "";
+        String artistName = "";
+        if (musicDataSplit.length >= 2) {
+            artistName = musicDataSplit[0];
+            my_musicName = musicDataSplit[1];
+            track_name.setText(my_musicName);
+            artist_name.setText(artistName);
+        }else {
+            track_name.setText(selectedMusic.getMusic_name());
+            artist_name.setText("Unknown");
+        }
     }
 
     private void updateSeekBar(SeekBar seekBar) {

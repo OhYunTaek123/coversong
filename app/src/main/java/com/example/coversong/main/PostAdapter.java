@@ -37,9 +37,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Map<String, Object> postData = postList.get(position);
         String title = (String) postData.get("title");
+        String id = (String) postData.get("publisher");
         String content = (String) postData.get("contents");
 
         holder.titleTextView.setText("제목: " + title);
+        holder.idTextView.setText("ID: " + id);
         holder.contentTextView.setText("내용: " + content);
     }
 
@@ -50,10 +52,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView titleTextView;
         TextView contentTextView;
+        TextView idTextView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.post_item_view);
+            idTextView = itemView.findViewById(R.id.post_name_view);
             contentTextView = itemView.findViewById(R.id.post_text_view);
         }
     }
