@@ -266,7 +266,7 @@ public class BoardPlaylist extends Fragment {
     }
 
     private void updateUI(music selectedMusic) {
-        String play_musicName =  selectedMusic.getMusic_name();
+        String play_musicName =  selectedMusic.getMusic_name().replace("RecordFiles/", "");;
         String[] musicDataSplit = play_musicName.split("!@");
         String my_musicName = "";
         String artistName = "";
@@ -276,7 +276,7 @@ public class BoardPlaylist extends Fragment {
             track_name.setText(my_musicName);
             artist_name.setText(artistName);
         }else {
-            track_name.setText(selectedMusic.getMusic_name());
+            track_name.setText(selectedMusic.getMusic_name().replace("RecordFiles/", ""));
             artist_name.setText("Unknown");
         }
 
