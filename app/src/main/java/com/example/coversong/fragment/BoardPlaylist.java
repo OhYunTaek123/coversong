@@ -1,5 +1,7 @@
 package com.example.coversong.fragment;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.res.ColorStateList;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -27,16 +29,25 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.coversong.R;
+import com.google.android.exoplayer2.util.Log;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
+import com.kakao.sdk.user.UserApiClient;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -54,7 +65,7 @@ public class BoardPlaylist extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private ImageView start_pause_btn;
     private ImageView item_cover_image_view2;
-    private TextView track_name;
+    private TextView track_name, title_text_view;
     private TextView artist_name;
     private TextView play_time_text_view;
     private TextView total_time_text_view;
@@ -67,6 +78,7 @@ public class BoardPlaylist extends Fragment {
     private Group playerViewGroup;
     private Group playListGroup;
     private int currentSongIndex = -1;
+    ArrayList<Map<String, Object>> arrayList2 = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,6 +99,7 @@ public class BoardPlaylist extends Fragment {
         total_time_text_view = view.findViewById(R.id.total_time_text_view);
         skip_prev_image_view = view.findViewById(R.id.skip_prev_image_view);
         skip_next_image_view = view.findViewById(R.id.skip_next_image_view);
+        title_text_view = view.findViewById(R.id.title_text_view);
 
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
@@ -95,35 +108,39 @@ public class BoardPlaylist extends Fragment {
         adapter = new MusicAdapter(new MediaPlayer(), arrayList, getContext());
         recyclerView.setAdapter(adapter);
 
-        storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
-            @Override
-            public void onSuccess(ListResult listResult) {
-                arrayList.clear();
-                for (StorageReference item : listResult.getItems()) {
-                    music music = new music();
-                    music.setMusic_name(item.getName());
-                    music.setMusic_maker("Unknown");
-                    item.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseStorage storage1 = FirebaseStorage.getInstance();
+
+        UserApiClient.getInstance().me(((user, throwable) -> {
+            String collectionPath = user.getId()+"playlist";
+            db.collection(collectionPath).get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
-                        public void onSuccess(Uri uri) {
-                            music.setImage(uri.toString());
-                            arrayList.add(music);
-                            adapter.notifyDataSetChanged();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            // 다운로드 URL을 얻는데 실패한 경우
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if(task.isSuccessful()){
+                                for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                                    String audioUrl = documentSnapshot.getString("videoUrl");
+                                    StorageReference storageReference = storage1.getReference().child(audioUrl);
+                                    storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                                        music music = new music();
+                                        music.setMusic_name( audioUrl);
+                                        music.setMusic_maker("Unknown");
+                                        music.setImage(uri.toString());
+                                        arrayList.add(music);
+                                        adapter.notifyDataSetChanged();
+                                    }).addOnFailureListener(e -> {
+                                        // 다운로드 URL을 얻는데 실패한 경우
+                                        title_text_view.setText("싯팟");
+                                    });
+                                }
+                            } else {
+                                Log.d(TAG, "Result is empty");
+                                title_text_view.setText("젠장");
+                            }
                         }
                     });
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                // 오류
-            }
-        });
+            return null;
+        }));
 
         adapter.setOnItemClickListener(new MusicAdapter.OnItemClickListener() {
             @Override

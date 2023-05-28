@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -72,7 +73,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
     public void onBindViewHolder(@NonNull MusicViewHolder holder, int position) {
         holder.myFavorite_btn.setBackgroundResource(R.drawable.baseline_favorite_border_24);
 
-        String musicName = arrayList.get(position).getMusic_name();
+        String musicName = arrayList.get(position).getMusic_name().replace("RecordFiles/", "");
         Glide.with(holder.itemView)
                 .load(arrayList.get(position).getImage())
                 .placeholder(R.drawable.baseline_audiotrack_24)
