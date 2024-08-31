@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/purple_200"
+    android:orientation="vertical"
+    tools:context=".main.MainActivity">
+
+
+    <ImageView
+        android:id="@+id/imageLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/covery_logo_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/main_kakao_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:rotationX="0"
+        android:src="@drawable/kakao_login_medium_wide"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/main_pass_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:background="@color/transparency"
+        android:text="@string/action_pass"
+        android:textColor="#FFFFFF"
+        android:textSize="19sp"
+        android:visibility="gone" />
+
+</LinearLayout>
